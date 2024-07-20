@@ -85,7 +85,70 @@ def sumcount(n):
 n =10;
 print('sum of', n, 'integers', sumcount(n))
 
+'''-------------------------------------------------------------------------'''
 
+#calculate the cost of the portfolio
+
+def portfolio_price(data_loc):
+    f = open(data_loc, 'rt');
+    headers = next(f);#move the pointer to the next line
+
+    cost = 0;
+    num_shares =0;
+    share_price = 0;
+    
+    for line in f:
+        row = line.split(',')
+        num_shares = float(row[1])
+        share_price = float(row[2])
+        cost = cost + (num_shares*share_price)
+    
+    f.close()
+    
+    #print('cost of portfolio', cost)
+    return cost;
+
+
+data_loc = 'C:/Users/soura/Documents/GitHub/python_refresher/Work/Data/portfolio.csv'
+
+print(portfolio_price(data_loc));
+'''-------------------------------------------------------------------------'''
+
+
+#calculate the cost of the portfolio with exception handling
+
+def portfolio_price(data_loc):
+    f = open(data_loc, 'rt');
+    
+    #move the pointer to the next line
+    #headers = next(f);
+
+    cost = 0;
+    num_shares =0;
+    share_price = 0;
+    
+    for line in f:
+        try:
+            row = line.split(',')
+        except ValueError:
+            print('cannot read line')
+        try:
+            num_shares = float(row[1])
+            share_price = float(row[2])
+            cost = cost + (num_shares*share_price)
+        except ValueError:
+            print('failed to read string into float')
+    
+    f.close()
+    
+    #print('cost of portfolio', cost)
+    return cost;
+
+#------------------------------------------------------------------------------
+data_loc = 'C:/Users/soura/Documents/GitHub/python_refresher/Work/Data/missing.csv'
+
+print(portfolio_price(data_loc));
+'''-------------------------------------------------------------------------'''
 
 
 
